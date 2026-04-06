@@ -907,35 +907,41 @@
         });
       }
 
-      // Mobile arrow navigation
-      const prevBtn = document.getElementById('faqPrev');
-      const nextBtn = document.getElementById('faqNext');
-      const catCounter = document.getElementById('faqCatCurrent');
-
-      const updateArrows = () => {
-        if (!prevBtn || !nextBtn || !catCounter) return;
-        prevBtn.classList.toggle('disabled', activeCat === 0);
-        nextBtn.classList.toggle('disabled', activeCat === pills.length - 1);
-        catCounter.textContent = activeCat + 1;
+      // Mobile dots indicator
+      const dots = document.querySelectorAll('.faq-dot');
+      const updateDots = () => {
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('active', i === activeCat);
+        });
       };
 
-      if (prevBtn) prevBtn.addEventListener('click', () => {
-        if (activeCat > 0) pills[activeCat - 1].click();
-        updateArrows();
-      });
-      if (nextBtn) nextBtn.addEventListener('click', () => {
-        if (activeCat < pills.length - 1) pills[activeCat + 1].click();
-        updateArrows();
+      // Dots are clickable — they switch category
+      dots.forEach((dot, i) => {
+        dot.addEventListener('click', () => {
+          if (i !== activeCat) pills[i].click();
+        });
       });
 
-      // Also update arrows whenever category changes
-      const origPillClick = pills.forEach.bind(pills);
-      pills.forEach((pill, i) => {
-        const orig = pill.onclick;
-        pill.addEventListener('click', () => setTimeout(updateArrows, 250));
+      // Sync dots when pills are clicked
+      pills.forEach(() => {
+        // activeCat is updated inside the pill click handler above
+        // We sync dots after a short delay to let the switch complete
       });
 
-      updateArrows();
+      // Override: update dots after every category switch
+      const origSwitchDone = () => setTimeout(updateDots, 300);
+      pills.forEach(pill => pill.addEventListener('click', origSwitchDone));
+
+      // Scroll active pill into view on mobile
+      pills.forEach(pill => {
+        pill.addEventListener('click', () => {
+          setTimeout(() => {
+            pill.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+          }, 100);
+        });
+      });
+
+      updateDots();
 
       // Scroll reveal
       this.initReveal();
