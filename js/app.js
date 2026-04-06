@@ -302,7 +302,10 @@
       const parse = (s) => parseInt(s.replace(/\s/g, '').replace(/[^\d]/g, '')) || 0;
 
       const calculate = () => {
-        const tfp = parseInt(slider.value);
+        // Use input value if it exceeds slider max (500k), otherwise use slider
+        const inputVal = parse(input.value);
+        const sliderVal = parseInt(slider.value);
+        const tfp = (inputVal > 500000) ? inputVal : sliderVal;
         const hasGiac = giac.checked;
 
         // Calculate plafond based on GIAC state
@@ -336,8 +339,8 @@
         rembEl.textContent = format(remb);
         ruleEl.textContent = rule;
 
-        // Gauge (relative to max slider value)
-        const maxRef = 500000;
+        // Gauge (relative to max possible value)
+        const maxRef = Math.max(plafond, 500000);
         gaugeFill.style.width = Math.min((plafond / maxRef) * 100, 100) + '%';
 
         // GIAC visual state
@@ -368,16 +371,18 @@
 
       input.addEventListener('input', () => {
         const val = parse(input.value);
-        if (val >= 1000 && val <= 500000) {
-          slider.value = val;
+        if (val >= 1000 && val <= 3000000) {
+          // Sync slider only if within slider range
+          slider.value = Math.min(val, 500000);
           calculate();
         }
       });
 
       input.addEventListener('blur', () => {
         const val = parse(input.value);
-        const clamped = Math.max(1000, Math.min(500000, val));
-        slider.value = clamped;
+        const clamped = Math.max(1000, Math.min(3000000, val));
+        slider.value = Math.min(clamped, 500000);
+        input.value = format(clamped);
         calculate();
       });
 
