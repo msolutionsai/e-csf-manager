@@ -181,18 +181,32 @@
           </label>
         </div>
         <div class="sim-panel sim-results" id="simResults">
+          <!-- Plafond -->
           <div class="sim-result-block">
-            <span class="sim-result-label">Plafond CSF estim&#233;</span>
+            <span class="sim-result-label">Plafond CSF</span>
             <div class="sim-result-amount" id="plafondAmount">200 000</div>
             <span class="sim-result-unit">DHS</span>
           </div>
-          <div class="sim-gauge"><div class="sim-gauge-fill" id="simGaugeFill"></div></div>
+          <!-- TFP utilization gauge -->
+          <div class="sim-usage">
+            <div class="sim-usage-bar"><div class="sim-usage-fill" id="simUsageFill"></div></div>
+            <div class="sim-usage-info">
+              <span class="sim-usage-pct" id="simUsagePct">25%</span>
+              <span class="sim-usage-label">de votre plafond utilis&#233;</span>
+            </div>
+          </div>
+          <!-- Remboursement adapté à la TFP -->
           <div class="sim-result-block">
-            <span class="sim-result-label">Remboursement potentiel &#224; 70%</span>
-            <div class="sim-result-amount sim-result-amount--teal" id="rembAmount">140 000</div>
+            <span class="sim-result-label">Remboursement estim&#233; &#224; 70%</span>
+            <div class="sim-result-amount sim-result-amount--teal" id="rembAmount">35 000</div>
             <span class="sim-result-unit">DHS</span>
           </div>
-          <!-- GIAC bonus banner (shows only when GIAC makes a difference) -->
+          <!-- Reste disponible -->
+          <div class="sim-reste" id="simReste">
+            <span class="sim-reste-label">Budget restant disponible</span>
+            <span class="sim-reste-amount" id="simResteAmount">165 000 DHS</span>
+          </div>
+          <!-- GIAC bonus banner -->
           <div class="sim-giac-bonus" id="simGiacBonus">
             <span class="sim-bonus-icon">&#9650;</span>
             <span class="sim-bonus-text" id="simBonusText">+100 000 DHS gr&#226;ce &#224; l'&#233;tude GIAC</span>

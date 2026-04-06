@@ -293,7 +293,9 @@
       const resultsPanel = document.getElementById('simResults');
       const plafondEl = document.getElementById('plafondAmount');
       const rembEl = document.getElementById('rembAmount');
-      const gaugeFill = document.getElementById('simGaugeFill');
+      const usageFill = document.getElementById('simUsageFill');
+      const usagePct = document.getElementById('simUsagePct');
+      const resteAmount = document.getElementById('simResteAmount');
       const ruleEl = document.getElementById('simRule');
       const bonusBanner = document.getElementById('simGiacBonus');
       const bonusText = document.getElementById('simBonusText');
@@ -329,18 +331,27 @@
           rule = 'TFP \u2265 200 000 DHS \u00b7 Plafond = TFP \u00b7 R\u00e8gle OFPPT';
         }
 
-        const remb = Math.round(plafond * 0.7);
+        // Remboursement basé sur la TFP (ce que l'entreprise peut réellement mobiliser)
+        // Le remboursement est 70% du coût formation, plafonné au plafond CSF
+        // On utilise la TFP comme proxy du budget mobilisable
+        const budgetMobilisable = Math.min(tfp, plafond);
+        const remb = Math.round(budgetMobilisable * 0.7);
         const bonus = plafondAvec - plafondSans;
         const giacHasEffect = bonus > 0;
+
+        // Usage: quelle part du plafond la TFP couvre
+        const usagePctVal = Math.min(Math.round((tfp / plafond) * 100), 100);
+        const reste = Math.max(plafond - tfp, 0);
 
         // Update amounts
         plafondEl.textContent = format(plafond);
         rembEl.textContent = format(remb);
         ruleEl.textContent = rule;
 
-        // Gauge (relative to max possible value)
-        const maxRef = Math.max(plafond, 500000);
-        gaugeFill.style.width = Math.min((plafond / maxRef) * 100, 100) + '%';
+        // Usage gauge
+        if (usageFill) usageFill.style.width = usagePctVal + '%';
+        if (usagePct) usagePct.textContent = usagePctVal + '%';
+        if (resteAmount) resteAmount.textContent = format(reste) + ' DHS';
 
         // GIAC visual state
         const giacActive = hasGiac && giacHasEffect;
