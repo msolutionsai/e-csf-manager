@@ -733,11 +733,69 @@ body::before {
   border: none; cursor: grab;
 }
 
+/* Slider wrapper with markers */
+.sim-slider-wrap {
+  position: relative;
+  padding-bottom: 28px;
+}
+.sim-markers {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  pointer-events: none;
+}
+.sim-marker {
+  position: absolute;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.sim-marker-line {
+  width: 1px;
+  height: 22px;
+  background: var(--text-tertiary);
+  opacity: 0.3;
+}
+.sim-marker-label {
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  color: var(--text-tertiary);
+  margin-top: 4px;
+}
+.sim-marker--accent .sim-marker-line {
+  background: var(--accent-teal);
+  opacity: 0.6;
+  width: 2px;
+}
+.sim-marker--accent .sim-marker-label {
+  color: var(--accent-teal);
+  font-weight: 600;
+}
+.sim-marker-tag {
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  color: var(--accent-teal);
+  background: rgba(16,185,129,0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-top: 2px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.sim-giac-toggle input:checked ~ .sim-giac-text ~ .sim-marker-tag,
+.sim-slider-wrap.giac-on .sim-marker-tag {
+  opacity: 1;
+}
+
 .sim-input-row {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-top: 14px;
+  margin-top: 8px;
 }
 .sim-number-input {
   flex: 1;

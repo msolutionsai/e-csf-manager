@@ -161,8 +161,13 @@
         <div class="sim-panel sim-input">
           <div class="sim-field">
             <label for="tfpSlider" class="sim-label">Montant TFP annuel</label>
-            <div class="sim-slider-row">
-              <input type="range" id="tfpSlider" min="1000" max="3000000" value="50000" step="1000" class="sim-slider">
+            <div class="sim-slider-wrap">
+              <input type="range" id="tfpSlider" min="1000" max="500000" value="50000" step="1000" class="sim-slider">
+              <!-- Threshold markers on the slider track -->
+              <div class="sim-markers">
+                <div class="sim-marker" style="left:4%"><span class="sim-marker-line"></span><span class="sim-marker-label">20k</span></div>
+                <div class="sim-marker sim-marker--accent" style="left:40%" id="markerGiac"><span class="sim-marker-line"></span><span class="sim-marker-label">200k</span><span class="sim-marker-tag" id="markerGiacTag">Seuil GIAC</span></div>
+              </div>
             </div>
             <div class="sim-input-row">
               <input type="text" id="tfpInput" value="50 000" class="sim-number-input" inputmode="numeric">

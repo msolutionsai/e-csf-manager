@@ -288,6 +288,8 @@
       const slider = document.getElementById('tfpSlider');
       const input = document.getElementById('tfpInput');
       const giac = document.getElementById('giacCheck');
+      const sliderWrap = document.querySelector('.sim-slider-wrap');
+      const markerGiacTag = document.getElementById('markerGiacTag');
       const resultsPanel = document.getElementById('simResults');
       const plafondEl = document.getElementById('plafondAmount');
       const rembEl = document.getElementById('rembAmount');
@@ -334,8 +336,8 @@
         rembEl.textContent = format(remb);
         ruleEl.textContent = rule;
 
-        // Gauge (relative to max possible in this tranche)
-        const maxRef = Math.max(plafondAvec, tfp, 300000);
+        // Gauge (relative to max slider value)
+        const maxRef = 500000;
         gaugeFill.style.width = Math.min((plafond / maxRef) * 100, 100) + '%';
 
         // GIAC visual state
@@ -353,6 +355,10 @@
           bonusBanner.classList.remove('visible');
         }
 
+        // GIAC marker visibility
+        if (sliderWrap) sliderWrap.classList.toggle('giac-on', hasGiac);
+        if (markerGiacTag) markerGiacTag.style.opacity = hasGiac ? '1' : '0';
+
         // Sync input
         input.value = format(tfp);
       };
@@ -362,7 +368,7 @@
 
       input.addEventListener('input', () => {
         const val = parse(input.value);
-        if (val >= 1000 && val <= 3000000) {
+        if (val >= 1000 && val <= 500000) {
           slider.value = val;
           calculate();
         }
@@ -370,7 +376,7 @@
 
       input.addEventListener('blur', () => {
         const val = parse(input.value);
-        const clamped = Math.max(1000, Math.min(3000000, val));
+        const clamped = Math.max(1000, Math.min(500000, val));
         slider.value = clamped;
         calculate();
       });
