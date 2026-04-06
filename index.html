@@ -158,10 +158,10 @@
     <div class="container">
       <h2 class="section-title reveal-up">Calculez votre budget CSF en 10 secondes</h2>
       <div class="simulator reveal-up" data-delay="100">
-        <div class="sim-panel sim-input">
-          <h3 class="sim-panel-title">Votre Taxe de Formation Professionnelle</h3>
-          <div class="sim-field">
-            <label for="tfpSlider">Montant TFP annuel</label>
+        <!-- Input zone -->
+        <div class="sim-top">
+          <div class="sim-field-group">
+            <label for="tfpSlider" class="sim-label">Montant TFP annuel</label>
             <div class="sim-slider-row">
               <input type="range" id="tfpSlider" min="1000" max="3000000" value="50000" step="1000" class="sim-slider">
             </div>
@@ -170,41 +170,50 @@
               <span class="sim-currency">DH</span>
             </div>
           </div>
-          <div class="sim-field sim-checkbox-field">
-            <label class="sim-checkbox">
-              <input type="checkbox" id="giacCheck">
-              <span class="sim-checkmark">
-                <svg viewBox="0 0 16 16" fill="none" stroke="white" stroke-width="2.5"><path d="M3 8l3.5 3.5L13 5"/></svg>
-              </span>
-              <span class="sim-checkbox-label">&#201;tude de Diagnostic Strat&#233;gique GIAC valid&#233;e</span>
-            </label>
-          </div>
+          <label class="sim-giac-toggle" id="giacToggle">
+            <input type="checkbox" id="giacCheck">
+            <span class="sim-giac-switch"><span class="sim-giac-knob"></span></span>
+            <span class="sim-giac-text">&#201;tude Strat&#233;gique GIAC</span>
+          </label>
         </div>
-        <div class="sim-panel sim-results">
-          <div class="sim-result-main">
-            <span class="sim-result-label">Plafond CSF estim&#233;</span>
-            <div class="sim-result-amount" id="plafondAmount">200 000</div>
-            <span class="sim-result-currency">DH</span>
+
+        <!-- Comparison cards -->
+        <div class="sim-compare" id="simCompare">
+          <!-- Card SANS GIAC -->
+          <div class="sim-card sim-card--base" id="simCardBase">
+            <div class="sim-card-header">
+              <span class="sim-card-badge">Standard</span>
+            </div>
+            <div class="sim-card-body">
+              <span class="sim-card-label">Plafond CSF</span>
+              <div class="sim-card-amount" id="plafondBase">200 000</div>
+              <span class="sim-card-unit">DH</span>
+              <div class="sim-card-gauge"><div class="sim-card-gauge-fill" id="gaugeBase"></div></div>
+              <div class="sim-card-sub">
+                <span class="sim-card-sub-label">Remboursement &#224; 70%</span>
+                <span class="sim-card-sub-amount" id="rembBase">140 000 DH</span>
+              </div>
+            </div>
+            <div class="sim-card-rule" id="ruleBase">Tranche TFP 20 000 – 200 000 DH</div>
           </div>
-          <div class="sim-gauge-container">
-            <svg viewBox="0 0 200 20" class="sim-gauge">
-              <rect x="0" y="0" width="200" height="20" rx="10" fill="currentColor" opacity="0.1"/>
-              <rect x="0" y="0" width="140" height="20" rx="10" fill="url(#gaugeGrad)" id="simGaugeBar"/>
-              <defs>
-                <linearGradient id="gaugeGrad" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0%" stop-color="#3B82F6"/>
-                  <stop offset="100%" stop-color="#10B981"/>
-                </linearGradient>
-              </defs>
-            </svg>
-          </div>
-          <div class="sim-result-secondary">
-            <span class="sim-result-label">Remboursement potentiel &#224; 70%</span>
-            <div class="sim-result-amount sim-result-amount--secondary" id="remboursementAmount">140 000</div>
-            <span class="sim-result-currency">DH</span>
-          </div>
-          <div class="sim-rule-context" id="simRuleContext">
-            Tranche TFP 20 000 – 200 000 DH &middot; R&#232;gle OFPPT
+
+          <!-- Card AVEC GIAC -->
+          <div class="sim-card sim-card--giac" id="simCardGiac">
+            <div class="sim-card-header">
+              <span class="sim-card-badge sim-card-badge--giac">Avec GIAC</span>
+              <span class="sim-card-diff" id="giacDiff">+50%</span>
+            </div>
+            <div class="sim-card-body">
+              <span class="sim-card-label">Plafond CSF</span>
+              <div class="sim-card-amount sim-card-amount--giac" id="plafondGiac">300 000</div>
+              <span class="sim-card-unit">DH</span>
+              <div class="sim-card-gauge"><div class="sim-card-gauge-fill sim-card-gauge-fill--giac" id="gaugeGiac"></div></div>
+              <div class="sim-card-sub">
+                <span class="sim-card-sub-label">Remboursement &#224; 70%</span>
+                <span class="sim-card-sub-amount sim-card-sub-amount--giac" id="rembGiac">210 000 DH</span>
+              </div>
+            </div>
+            <div class="sim-card-rule" id="ruleGiac">Plafond major&#233; avec &#233;tude GIAC</div>
           </div>
         </div>
       </div>

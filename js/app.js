@@ -288,78 +288,74 @@
       const slider = document.getElementById('tfpSlider');
       const input = document.getElementById('tfpInput');
       const giac = document.getElementById('giacCheck');
-      const plafondEl = document.getElementById('plafondAmount');
-      const rembEl = document.getElementById('remboursementAmount');
-      const gaugeBar = document.getElementById('simGaugeBar');
-      const ruleCtx = document.getElementById('simRuleContext');
+      const giacCard = document.getElementById('simCardGiac');
 
-      const format = (n) => {
-        return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+      // Elements: base card (sans GIAC)
+      const plafondBaseEl = document.getElementById('plafondBase');
+      const rembBaseEl = document.getElementById('rembBase');
+      const gaugeBaseEl = document.getElementById('gaugeBase');
+      const ruleBaseEl = document.getElementById('ruleBase');
+
+      // Elements: GIAC card
+      const plafondGiacEl = document.getElementById('plafondGiac');
+      const rembGiacEl = document.getElementById('rembGiac');
+      const gaugeGiacEl = document.getElementById('gaugeGiac');
+      const ruleGiacEl = document.getElementById('ruleGiac');
+      const diffEl = document.getElementById('giacDiff');
+
+      const format = (n) => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+      const parse = (s) => parseInt(s.replace(/\s/g, '').replace(/[^\d]/g, '')) || 0;
+
+      const calcPlafond = (tfp, withGiac) => {
+        if (tfp < 20000) return tfp * (withGiac ? 15 : 10);
+        if (tfp < 200000) return withGiac ? 300000 : 200000;
+        return tfp;
       };
 
-      const parse = (s) => {
-        return parseInt(s.replace(/\s/g, '').replace(/[^\d]/g, '')) || 0;
+      const getRule = (tfp, withGiac) => {
+        if (tfp < 20000) return `TFP < 20 000 DH \u00b7 \u00d7${withGiac ? 15 : 10}`;
+        if (tfp < 200000) return `Tranche 20k\u2013200k \u00b7 Plafond ${withGiac ? '300 000' : '200 000'} DH`;
+        return `TFP \u2265 200 000 DH \u00b7 Plafond = TFP`;
       };
 
       const calculate = () => {
         const tfp = parseInt(slider.value);
         const hasGiac = giac.checked;
-        let plafond, rule;
 
-        if (tfp < 20000) {
-          const mult = hasGiac ? 15 : 10;
-          plafond = tfp * mult;
-          rule = `TFP < 20 000 DH \u00b7 Multiplicateur \u00d7${mult} \u00b7 R\u00e8gle OFPPT`;
-        } else if (tfp < 200000) {
-          plafond = hasGiac ? 300000 : 200000;
-          rule = `Tranche TFP 20 000 \u2013 200 000 DH \u00b7 Plafond ${hasGiac ? '300 000' : '200 000'} DH \u00b7 R\u00e8gle OFPPT`;
+        // Calculate both scenarios
+        const plafondBase = calcPlafond(tfp, false);
+        const plafondGiac = calcPlafond(tfp, true);
+        const rembBase = Math.round(plafondBase * 0.7);
+        const rembGiac = Math.round(plafondGiac * 0.7);
+
+        // Update base card
+        plafondBaseEl.textContent = format(plafondBase);
+        rembBaseEl.textContent = format(rembBase) + ' DH';
+        ruleBaseEl.textContent = getRule(tfp, false);
+
+        // Update GIAC card
+        plafondGiacEl.textContent = format(plafondGiac);
+        rembGiacEl.textContent = format(rembGiac) + ' DH';
+        ruleGiacEl.textContent = getRule(tfp, true);
+
+        // Gauge bars (percentage relative to max of both)
+        const maxP = Math.max(plafondBase, plafondGiac, 1);
+        gaugeBaseEl.style.width = ((plafondBase / maxP) * 100) + '%';
+        gaugeGiacEl.style.width = ((plafondGiac / maxP) * 100) + '%';
+
+        // Difference indicator
+        if (plafondGiac > plafondBase) {
+          const pctDiff = Math.round(((plafondGiac - plafondBase) / plafondBase) * 100);
+          diffEl.textContent = '+' + pctDiff + '%';
         } else {
-          plafond = tfp;
-          rule = hasGiac
-            ? `TFP \u2265 200 000 DH \u00b7 Plafond = TFP \u00b7 \u00c9tude GIAC sans effet sur cette tranche`
-            : `TFP \u2265 200 000 DH \u00b7 Plafond = TFP \u00b7 R\u00e8gle OFPPT`;
+          diffEl.textContent = '=';
         }
 
-        const remb = Math.round(plafond * 0.7);
-
-        // Animate numbers
-        this.animateNumber(plafondEl, plafond);
-        this.animateNumber(rembEl, remb);
-
-        // Gauge — normalize relative to max possible
-        const maxPlafond = Math.max(plafond, tfp * 15, 300000);
-        const pct = Math.min((plafond / maxPlafond) * 100, 100);
-        gaugeBar.setAttribute('width', (pct * 2).toString());
-
-        ruleCtx.textContent = rule;
+        // Highlight GIAC card when toggle is ON
+        giacCard.classList.toggle('highlighted', hasGiac);
 
         // Sync input display
         input.value = format(tfp);
-      };
-
-      this.animateNumber = (el, target) => {
-        // Cancel any running animation on this element
-        if (el._animId) cancelAnimationFrame(el._animId);
-
-        const current = parse(el.textContent);
-        if (current === target) { el.textContent = format(target); return; }
-        const diff = target - current;
-        const steps = 30;
-        let step = 0;
-
-        const tick = () => {
-          step++;
-          const progress = step / steps;
-          const ease = 1 - Math.pow(1 - progress, 3); // easeOutCubic
-          const val = Math.round(current + diff * ease);
-          el.textContent = format(val);
-          if (step < steps) {
-            el._animId = requestAnimationFrame(tick);
-          } else {
-            el._animId = null;
-          }
-        };
-        el._animId = requestAnimationFrame(tick);
       };
 
       slider.addEventListener('input', calculate);
