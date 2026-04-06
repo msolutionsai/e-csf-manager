@@ -940,20 +940,24 @@ body::before {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 12px;
   padding: 10px 16px;
   background: var(--border-subtle);
   border-radius: 8px;
   margin-bottom: 16px;
+  text-align: center;
 }
 .sim-reste-label {
   font-size: 0.75rem;
   color: var(--text-tertiary);
+  white-space: nowrap;
 }
 .sim-reste-amount {
   font-family: var(--font-mono);
   font-size: 0.8125rem;
   font-weight: 600;
   color: var(--text-secondary);
+  white-space: nowrap;
 }
 
 /* GIAC active state */
@@ -2040,6 +2044,84 @@ select:focus-visible {
 .faq-toast.show {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* ── Mobile Responsive Fixes ──────────────────────────────── */
+@media (max-width: 768px) {
+  /* Global: reduce section padding */
+  .section { padding: 72px 0; }
+  .section-title { font-size: 1.75rem; margin-bottom: 40px; }
+  .section-subtitle { margin: -12px auto 32px; font-size: 1rem; }
+  .container { padding: 0 16px; }
+
+  /* Hero */
+  .hero { padding: 100px 16px 60px; min-height: auto; }
+  .hero-title { font-size: 2rem; }
+  .hero-subtitle { font-size: 0.9375rem; }
+  .hero-ctas { flex-direction: column; gap: 12px; }
+  .hero-ctas .btn { width: 100%; justify-content: center; }
+
+  /* Problem cards */
+  .problem-card { padding: 24px; }
+
+  /* Simulator */
+  .simulator { border-radius: 16px; }
+  .sim-panel { padding: 24px; }
+  .sim-results { padding: 24px 20px; }
+  .sim-result-amount { font-size: 2rem; }
+  .sim-result-amount--teal { font-size: 1.25rem; }
+  .sim-reste {
+    flex-direction: column;
+    gap: 4px;
+    text-align: center;
+    padding: 8px 12px;
+  }
+
+  /* Process: horizontal scroll */
+  .process-track { margin-bottom: 32px; }
+  .process-grid {
+    grid-template-columns: none;
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 16px;
+    padding-bottom: 12px;
+    scrollbar-width: none;
+  }
+  .process-grid::-webkit-scrollbar { display: none; }
+  .process-card {
+    flex: 0 0 85%;
+    scroll-snap-align: center;
+    min-width: 0;
+  }
+
+  /* Features */
+  .feature-card { padding: 24px; }
+
+  /* Metrics */
+  .section-metrics { padding: 56px 0; }
+  .metric-value { font-size: 2.25rem; }
+
+  /* FAQ */
+  .faq-layout { gap: 16px; }
+  .faq-content { min-height: auto; }
+  .faq-question { font-size: 0.9375rem; padding: 16px 0; }
+
+  /* Form */
+  .access-form { padding: 24px 16px; border-radius: 16px; }
+  .form-grid { gap: 16px; }
+  .btn-submit { min-width: auto; width: 100%; }
+
+  /* Footer */
+  .footer { padding: 32px 0; }
+  .footer-brand { flex-direction: column; text-align: center; gap: 8px; }
+  .footer-brand span { font-size: 0.8125rem; }
+}
+
+@media (max-width: 400px) {
+  .sim-result-amount { font-size: 1.75rem; }
+  .process-card { flex: 0 0 90%; }
 }
 
 /* ── Reduced Motion ───────────────────────────────────────── */
