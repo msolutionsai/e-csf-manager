@@ -666,27 +666,37 @@ body::before {
   transition: var(--theme-transition);
 }
 .simulator {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   background: var(--sim-bg);
   border: 1px solid var(--border-subtle);
   border-radius: 20px;
-  padding: 36px;
+  overflow: hidden;
   transition: var(--theme-transition);
 }
 [data-theme="light"] .simulator {
   box-shadow: 0 4px 24px rgba(0,0,0,0.06);
 }
-
-/* Top row: slider + GIAC toggle */
-.sim-top {
-  display: flex;
-  align-items: flex-end;
-  gap: 32px;
-  margin-bottom: 32px;
-}
 @media (max-width: 768px) {
-  .sim-top { flex-direction: column; align-items: stretch; gap: 20px; }
+  .simulator { grid-template-columns: 1fr; }
 }
-.sim-field-group { flex: 1; }
+
+.sim-panel { padding: 36px; }
+.sim-input { border-right: 1px solid var(--border-subtle); }
+@media (max-width: 768px) {
+  .sim-input { border-right: none; border-bottom: 1px solid var(--border-subtle); }
+}
+.sim-results {
+  background: var(--sim-results-bg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: var(--theme-transition), background-color 0.4s;
+}
+
+.sim-field { margin-bottom: 24px; }
 .sim-label {
   display: block;
   font-size: 0.8125rem;
@@ -757,21 +767,13 @@ body::before {
   align-items: center;
   gap: 12px;
   cursor: pointer;
-  padding: 10px 16px;
-  border: 1px solid var(--border-subtle);
-  border-radius: 12px;
   transition: all 0.3s;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-.sim-giac-toggle:hover {
-  border-color: var(--accent-teal);
 }
 .sim-giac-toggle input { display: none; }
 .sim-giac-switch {
-  width: 40px;
-  height: 22px;
-  border-radius: 11px;
+  width: 44px;
+  height: 24px;
+  border-radius: 12px;
   background: var(--border-medium);
   position: relative;
   transition: background 0.3s;
@@ -781,8 +783,8 @@ body::before {
   position: absolute;
   top: 3px;
   left: 3px;
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   background: #fff;
   transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
@@ -791,10 +793,10 @@ body::before {
   background: var(--accent-teal);
 }
 .sim-giac-toggle input:checked ~ .sim-giac-switch .sim-giac-knob {
-  transform: translateX(18px);
+  transform: translateX(20px);
 }
 .sim-giac-text {
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   font-weight: 500;
   color: var(--text-secondary);
   transition: color 0.3s;
@@ -803,147 +805,96 @@ body::before {
   color: var(--accent-teal);
 }
 
-/* Comparison cards */
-.sim-compare {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
+/* Results panel */
+.sim-result-block {
+  margin-bottom: 16px;
 }
-@media (max-width: 600px) {
-  .sim-compare { grid-template-columns: 1fr; }
-}
-
-.sim-card {
-  background: var(--bg-primary);
-  border: 1px solid var(--border-subtle);
-  border-radius: 16px;
-  padding: 24px;
-  transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1);
-  position: relative;
-}
-.sim-card--giac {
-  border-color: transparent;
-  opacity: 0.45;
-  transform: scale(0.97);
-}
-.sim-card--giac.highlighted {
-  opacity: 1;
-  transform: scale(1);
-  border-color: var(--accent-teal);
-  box-shadow: 0 0 24px rgba(16,185,129,0.12);
-}
-[data-theme="light"] .sim-card--giac.highlighted {
-  box-shadow: 0 4px 20px rgba(13,148,136,0.1);
-}
-
-.sim-card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-.sim-card-badge {
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  font-weight: 600;
-  padding: 4px 10px;
-  border-radius: 6px;
-  background: rgba(59,130,246,0.1);
-  color: var(--accent-blue);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-.sim-card-badge--giac {
-  background: rgba(16,185,129,0.1);
-  color: var(--accent-teal);
-}
-.sim-card-diff {
-  font-family: var(--font-mono);
-  font-size: 0.8125rem;
-  font-weight: 700;
-  color: var(--accent-teal);
-  opacity: 0;
-  transform: translateX(-8px);
-  transition: all 0.4s;
-}
-.sim-card--giac.highlighted .sim-card-diff {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.sim-card-body { text-align: center; }
-.sim-card-label {
+.sim-result-label {
   display: block;
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   color: var(--text-tertiary);
   margin-bottom: 4px;
 }
-.sim-card-amount {
+.sim-result-amount {
   font-family: var(--font-mono);
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 700;
   color: var(--accent-blue);
-  line-height: 1.2;
+  line-height: 1.1;
+  transition: color 0.4s;
 }
-.sim-card-amount--giac {
+.sim-result-amount--teal {
+  font-size: 1.5rem;
   color: var(--accent-teal);
 }
-.sim-card-unit {
-  display: block;
+.sim-result-unit {
   font-family: var(--font-mono);
   font-size: 0.75rem;
   color: var(--text-tertiary);
-  margin-bottom: 16px;
 }
 
-/* Gauge bar (HTML div, not SVG) */
-.sim-card-gauge {
+/* Gauge */
+.sim-gauge {
   width: 100%;
   height: 6px;
   background: var(--border-subtle);
   border-radius: 3px;
   overflow: hidden;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
-.sim-card-gauge-fill {
+.sim-gauge-fill {
   height: 100%;
-  width: 0%;
+  width: 50%;
   background: linear-gradient(90deg, #3B82F6, #60A5FA);
   border-radius: 3px;
-  transition: width 0.6s cubic-bezier(0.25,0.46,0.45,0.94);
+  transition: width 0.6s ease, background 0.4s;
 }
-.sim-card-gauge-fill--giac {
+/* Teal gauge when GIAC is active and has effect */
+.sim-results.giac-active .sim-gauge-fill {
   background: linear-gradient(90deg, #10B981, #34D399);
 }
-
-.sim-card-sub {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.sim-card-sub-label {
-  font-size: 0.75rem;
-  color: var(--text-tertiary);
-}
-.sim-card-sub-amount {
-  font-family: var(--font-mono);
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--accent-blue);
-}
-.sim-card-sub-amount--giac {
+.sim-results.giac-active .sim-result-amount:not(.sim-result-amount--teal) {
   color: var(--accent-teal);
 }
 
-.sim-card-rule {
-  margin-top: 16px;
-  padding-top: 12px;
-  border-top: 1px solid var(--border-subtle);
+/* GIAC bonus banner */
+.sim-giac-bonus {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: rgba(16,185,129,0.1);
+  border: 1px solid rgba(16,185,129,0.2);
+  border-radius: 10px;
+  margin-bottom: 16px;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+.sim-giac-bonus.visible {
+  opacity: 1;
+  max-height: 60px;
+  margin-top: 4px;
+}
+.sim-bonus-icon {
+  color: var(--accent-teal);
+  font-size: 0.75rem;
+}
+.sim-bonus-text {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent-teal);
+}
+
+/* Rule context */
+.sim-rule {
   font-family: var(--font-mono);
   font-size: 0.625rem;
   color: var(--text-tertiary);
-  text-align: center;
   letter-spacing: 0.02em;
+  margin-top: 8px;
 }
 
 .sim-footer {

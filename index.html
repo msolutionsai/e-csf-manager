@@ -158,9 +158,8 @@
     <div class="container">
       <h2 class="section-title reveal-up">Calculez votre budget CSF en 10 secondes</h2>
       <div class="simulator reveal-up" data-delay="100">
-        <!-- Input zone -->
-        <div class="sim-top">
-          <div class="sim-field-group">
+        <div class="sim-panel sim-input">
+          <div class="sim-field">
             <label for="tfpSlider" class="sim-label">Montant TFP annuel</label>
             <div class="sim-slider-row">
               <input type="range" id="tfpSlider" min="1000" max="3000000" value="50000" step="1000" class="sim-slider">
@@ -170,51 +169,30 @@
               <span class="sim-currency">DH</span>
             </div>
           </div>
-          <label class="sim-giac-toggle" id="giacToggle">
+          <label class="sim-giac-toggle">
             <input type="checkbox" id="giacCheck">
             <span class="sim-giac-switch"><span class="sim-giac-knob"></span></span>
             <span class="sim-giac-text">&#201;tude Strat&#233;gique GIAC</span>
           </label>
         </div>
-
-        <!-- Comparison cards -->
-        <div class="sim-compare" id="simCompare">
-          <!-- Card SANS GIAC -->
-          <div class="sim-card sim-card--base" id="simCardBase">
-            <div class="sim-card-header">
-              <span class="sim-card-badge">Standard</span>
-            </div>
-            <div class="sim-card-body">
-              <span class="sim-card-label">Plafond CSF</span>
-              <div class="sim-card-amount" id="plafondBase">200 000</div>
-              <span class="sim-card-unit">DH</span>
-              <div class="sim-card-gauge"><div class="sim-card-gauge-fill" id="gaugeBase"></div></div>
-              <div class="sim-card-sub">
-                <span class="sim-card-sub-label">Remboursement &#224; 70%</span>
-                <span class="sim-card-sub-amount" id="rembBase">140 000 DH</span>
-              </div>
-            </div>
-            <div class="sim-card-rule" id="ruleBase">Tranche TFP 20 000 – 200 000 DH</div>
+        <div class="sim-panel sim-results" id="simResults">
+          <div class="sim-result-block">
+            <span class="sim-result-label">Plafond CSF estim&#233;</span>
+            <div class="sim-result-amount" id="plafondAmount">200 000</div>
+            <span class="sim-result-unit">DH</span>
           </div>
-
-          <!-- Card AVEC GIAC -->
-          <div class="sim-card sim-card--giac" id="simCardGiac">
-            <div class="sim-card-header">
-              <span class="sim-card-badge sim-card-badge--giac">Avec GIAC</span>
-              <span class="sim-card-diff" id="giacDiff">+50%</span>
-            </div>
-            <div class="sim-card-body">
-              <span class="sim-card-label">Plafond CSF</span>
-              <div class="sim-card-amount sim-card-amount--giac" id="plafondGiac">300 000</div>
-              <span class="sim-card-unit">DH</span>
-              <div class="sim-card-gauge"><div class="sim-card-gauge-fill sim-card-gauge-fill--giac" id="gaugeGiac"></div></div>
-              <div class="sim-card-sub">
-                <span class="sim-card-sub-label">Remboursement &#224; 70%</span>
-                <span class="sim-card-sub-amount sim-card-sub-amount--giac" id="rembGiac">210 000 DH</span>
-              </div>
-            </div>
-            <div class="sim-card-rule" id="ruleGiac">Plafond major&#233; avec &#233;tude GIAC</div>
+          <div class="sim-gauge"><div class="sim-gauge-fill" id="simGaugeFill"></div></div>
+          <div class="sim-result-block">
+            <span class="sim-result-label">Remboursement potentiel &#224; 70%</span>
+            <div class="sim-result-amount sim-result-amount--teal" id="rembAmount">140 000</div>
+            <span class="sim-result-unit">DH</span>
           </div>
+          <!-- GIAC bonus banner (shows only when GIAC makes a difference) -->
+          <div class="sim-giac-bonus" id="simGiacBonus">
+            <span class="sim-bonus-icon">&#9650;</span>
+            <span class="sim-bonus-text" id="simBonusText">+100 000 DH gr&#226;ce &#224; l'&#233;tude GIAC</span>
+          </div>
+          <div class="sim-rule" id="simRule">Tranche TFP 20 000 – 200 000 DH &middot; R&#232;gle OFPPT</div>
         </div>
       </div>
       <div class="sim-footer reveal-up" data-delay="200">
