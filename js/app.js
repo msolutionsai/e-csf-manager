@@ -317,17 +317,17 @@
           plafondAvec = tfp * 15;
           const mult = hasGiac ? 15 : 10;
           plafond = tfp * mult;
-          rule = 'TFP < 20 000 DHS\u00b7 Multiplicateur \u00d7' + mult + ' \u00b7 R\u00e8gle OFPPT';
+          rule = 'TFP < 20 000 DHS \u00b7 Multiplicateur \u00d7' + mult + ' \u00b7 R\u00e8gle OFPPT';
         } else if (tfp < 200000) {
           plafondSans = 200000;
           plafondAvec = 300000;
           plafond = hasGiac ? 300000 : 200000;
-          rule = 'Tranche 20k\u2013200k \u00b7 Plafond ' + format(plafond) + ' DHS\u00b7 R\u00e8gle OFPPT';
+          rule = 'Tranche 20k\u2013200k \u00b7 Plafond ' + format(plafond) + ' DHS \u00b7 R\u00e8gle OFPPT';
         } else {
           plafondSans = tfp;
           plafondAvec = tfp;
           plafond = tfp;
-          rule = 'TFP \u2265 200 000 DHS\u00b7 Plafond = TFP \u00b7 R\u00e8gle OFPPT';
+          rule = 'TFP \u2265 200 000 DHS \u00b7 Plafond = TFP \u00b7 R\u00e8gle OFPPT';
         }
 
         const remb = Math.round(plafond * 0.7);
@@ -349,7 +349,7 @@
 
         // Bonus banner
         if (hasGiac && giacHasEffect) {
-          bonusText.textContent = '+' + format(bonus) + ' DHSgr\u00e2ce \u00e0 l\'\u00e9tude GIAC';
+          bonusText.textContent = '+' + format(bonus) + ' DHS gr\u00e2ce \u00e0 l\'\u00e9tude GIAC';
           bonusBanner.classList.add('visible');
         } else if (hasGiac && !giacHasEffect) {
           bonusText.textContent = '\u00c9tude GIAC sans effet sur cette tranche (TFP \u2265 200k)';
