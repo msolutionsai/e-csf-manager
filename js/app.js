@@ -452,6 +452,7 @@
       const dots = document.querySelectorAll('.process-dot');
       const cards = document.querySelectorAll('.process-card');
       const fill = document.getElementById('processTrackFill');
+      const grid = document.getElementById('processGrid');
 
       this.current = step;
 
@@ -467,6 +468,13 @@
         card.classList.remove('active');
         if (i === step) card.classList.add('active');
       });
+
+      // Scroll to active card in mobile horizontal layout
+      if (grid && cards[step]) {
+        const card = cards[step];
+        const scrollLeft = card.offsetLeft - grid.offsetLeft - (grid.clientWidth - card.offsetWidth) / 2;
+        grid.scrollTo({ left: Math.max(0, scrollLeft), behavior: 'smooth' });
+      }
 
       // Update progress bar
       const pct = (step / (dots.length - 1)) * 100;

@@ -2109,9 +2109,25 @@ select:focus-visible {
   .faq-question { font-size: 0.9375rem; padding: 16px 0; }
 
   /* Form */
+  .form-header .section-title { display: none; }
+  .form-header .section-subtitle { margin-top: 0; margin-bottom: 24px; }
   .access-form { padding: 24px 16px; border-radius: 16px; }
   .form-grid { gap: 16px; }
   .btn-submit { min-width: auto; width: 100%; }
+
+  /* FAQ pills: show scroll hint */
+  .faq-nav::after {
+    content: '';
+    position: sticky;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    flex-shrink: 0;
+    width: 40px;
+    background: linear-gradient(90deg, transparent, var(--bg-secondary));
+    pointer-events: none;
+  }
+  .faq-pill:last-child { margin-right: 40px; }
 
   /* Footer */
   .footer { padding: 32px 0; }
