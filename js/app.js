@@ -301,11 +301,10 @@
       const format = (n) => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
       const parse = (s) => parseInt(s.replace(/\s/g, '').replace(/[^\d]/g, '')) || 0;
 
+      let tfpOverride = null; // set when user types > 500k in input
+
       const calculate = () => {
-        // Use input value if it exceeds slider max (500k), otherwise use slider
-        const inputVal = parse(input.value);
-        const sliderVal = parseInt(slider.value);
-        const tfp = (inputVal > 500000) ? inputVal : sliderVal;
+        const tfp = tfpOverride !== null ? tfpOverride : parseInt(slider.value);
         const hasGiac = giac.checked;
 
         // Calculate plafond based on GIAC state
@@ -366,14 +365,22 @@
         input.value = format(tfp);
       };
 
-      slider.addEventListener('input', calculate);
+      slider.addEventListener('input', () => {
+        tfpOverride = null; // slider always takes priority
+        calculate();
+      });
       giac.addEventListener('change', calculate);
 
       input.addEventListener('input', () => {
         const val = parse(input.value);
         if (val >= 1000 && val <= 3000000) {
-          // Sync slider only if within slider range
-          slider.value = Math.min(val, 500000);
+          if (val > 500000) {
+            tfpOverride = val;
+            slider.value = 500000;
+          } else {
+            tfpOverride = null;
+            slider.value = val;
+          }
           calculate();
         }
       });
@@ -381,7 +388,13 @@
       input.addEventListener('blur', () => {
         const val = parse(input.value);
         const clamped = Math.max(1000, Math.min(3000000, val));
-        slider.value = Math.min(clamped, 500000);
+        if (clamped > 500000) {
+          tfpOverride = clamped;
+          slider.value = 500000;
+        } else {
+          tfpOverride = null;
+          slider.value = clamped;
+        }
         input.value = format(clamped);
         calculate();
       });
