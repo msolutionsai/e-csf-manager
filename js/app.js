@@ -315,7 +315,9 @@
           rule = `Tranche TFP 20 000 \u2013 200 000 DH \u00b7 Plafond ${hasGiac ? '300 000' : '200 000'} DH \u00b7 R\u00e8gle OFPPT`;
         } else {
           plafond = tfp;
-          rule = `TFP \u2265 200 000 DH \u00b7 Plafond = TFP \u00b7 R\u00e8gle OFPPT`;
+          rule = hasGiac
+            ? `TFP \u2265 200 000 DH \u00b7 Plafond = TFP \u00b7 \u00c9tude GIAC sans effet sur cette tranche`
+            : `TFP \u2265 200 000 DH \u00b7 Plafond = TFP \u00b7 R\u00e8gle OFPPT`;
         }
 
         const remb = Math.round(plafond * 0.7);
