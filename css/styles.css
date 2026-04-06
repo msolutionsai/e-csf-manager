@@ -2046,6 +2046,62 @@ select:focus-visible {
   transform: translateY(0);
 }
 
+/* ── FAQ Mobile Arrow Nav ─────────────────────────────────── */
+.faq-nav-arrows {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.faq-arrow {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border-medium);
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+.faq-arrow:hover {
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
+  transform: scale(1.1);
+}
+.faq-arrow:active { transform: scale(0.95); }
+.faq-arrow.disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
+.faq-nav-counter {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  min-width: 40px;
+  text-align: center;
+}
+.faq-nav-counter span {
+  color: var(--accent-blue);
+}
+
+/* Bounce animation on the next arrow to draw attention */
+.faq-arrow--next {
+  animation: faq-arrow-bounce 2s ease-in-out infinite;
+}
+@keyframes faq-arrow-bounce {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(4px); }
+}
+.faq-arrow--next:hover {
+  animation: none;
+  transform: scale(1.1);
+}
+
 /* ── Mobile Responsive Fixes ──────────────────────────────── */
 @media (max-width: 768px) {
   /* Global: reduce section padding */
@@ -2115,19 +2171,9 @@ select:focus-visible {
   .form-grid { gap: 16px; }
   .btn-submit { min-width: auto; width: 100%; }
 
-  /* FAQ pills: show scroll hint */
-  .faq-nav::after {
-    content: '';
-    position: sticky;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    flex-shrink: 0;
-    width: 40px;
-    background: linear-gradient(90deg, transparent, var(--bg-secondary));
-    pointer-events: none;
-  }
-  .faq-pill:last-child { margin-right: 40px; }
+  /* FAQ: hide horizontal pills, show arrow nav */
+  .faq-nav { display: none; }
+  .faq-nav-arrows { display: flex; }
 
   /* Footer */
   .footer { padding: 32px 0; }

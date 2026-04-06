@@ -907,6 +907,36 @@
         });
       }
 
+      // Mobile arrow navigation
+      const prevBtn = document.getElementById('faqPrev');
+      const nextBtn = document.getElementById('faqNext');
+      const catCounter = document.getElementById('faqCatCurrent');
+
+      const updateArrows = () => {
+        if (!prevBtn || !nextBtn || !catCounter) return;
+        prevBtn.classList.toggle('disabled', activeCat === 0);
+        nextBtn.classList.toggle('disabled', activeCat === pills.length - 1);
+        catCounter.textContent = activeCat + 1;
+      };
+
+      if (prevBtn) prevBtn.addEventListener('click', () => {
+        if (activeCat > 0) pills[activeCat - 1].click();
+        updateArrows();
+      });
+      if (nextBtn) nextBtn.addEventListener('click', () => {
+        if (activeCat < pills.length - 1) pills[activeCat + 1].click();
+        updateArrows();
+      });
+
+      // Also update arrows whenever category changes
+      const origPillClick = pills.forEach.bind(pills);
+      pills.forEach((pill, i) => {
+        const orig = pill.onclick;
+        pill.addEventListener('click', () => setTimeout(updateArrows, 250));
+      });
+
+      updateArrows();
+
       // Scroll reveal
       this.initReveal();
     },
