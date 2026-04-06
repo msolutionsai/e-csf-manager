@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="e-CSF Manager — Calculez vos droits OFPPT, contr&ocirc;lez vos d&eacute;lais en temps r&eacute;el et s&eacute;curisez vos remboursements CSF automatiquement.">
+  <title>e-CSF Manager — Pilotage CSF &amp; Conformit&eacute; OFPPT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%233B82F6'/><text x='16' y='22' text-anchor='middle' fill='white' font-size='16' font-weight='bold' font-family='system-ui'>e</text></svg>">
+</head>
+<body>
+  <!-- Custom Cursor -->
+  <div class="custom-cursor" id="customCursor"></div>
+  <div class="custom-cursor-dot" id="customCursorDot"></div>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a href="#" class="navbar-logo">
+        <img src="img/logo-dark.png" alt="e-CSF Manager" class="logo-img logo-img--dark">
+        <img src="img/logo-light.png" alt="e-CSF Manager" class="logo-img logo-img--light">
+      </a>
+      <div class="navbar-links" id="navLinks">
+        <a href="#fonctionnalites" class="nav-link">Fonctionnalit&#233;s</a>
+        <a href="#simulateur" class="nav-link">Simulateur</a>
+        <a href="#processus" class="nav-link">Processus</a>
+        <a href="#faq" class="nav-link">FAQ</a>
+        <a href="#acces" class="nav-link">Acc&#232;s</a>
+      </div>
+      <div class="navbar-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Changer de th&#232;me">
+          <svg class="theme-icon theme-icon--sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          <svg class="theme-icon theme-icon--moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
+        <a href="#acces" class="btn btn-primary btn-sm navbar-cta">Demander mon acc&#232;s</a>
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero" id="hero">
+    <canvas class="hero-grid" id="heroGrid"></canvas>
+    <div class="hero-particles" id="heroParticles"></div>
+    <div class="hero-content">
+      <h1 class="hero-title">
+        <span class="title-line reveal-up" data-delay="100">Ne ratez plus jamais</span>
+        <span class="title-line reveal-up" data-delay="200">une &#233;ch&#233;ance <em>CSF.</em></span>
+      </h1>
+      <p class="hero-subtitle reveal-up" data-delay="350">
+        e-CSF Manager calcule vos droits OFPPT, contr&#244;le vos d&#233;lais
+        en temps r&#233;el et vous guide jusqu'au remboursement. <strong>Automatiquement.</strong>
+      </p>
+      <div class="hero-ctas reveal-up" data-delay="500">
+        <a href="#simulateur" class="btn btn-primary btn-lg">
+          <span>Calculer mon budget CSF</span>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 10h10M11 6l4 4-4 4"/></svg>
+        </a>
+        <a href="#" class="btn btn-ghost btn-lg">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="8"/><polygon points="8,6 14,10 8,14" fill="currentColor" stroke="none"/></svg>
+          <span>Voir une d&#233;mo</span>
+        </a>
+      </div>
+      <div class="hero-badge reveal-up" data-delay="650">
+        <span class="pulse-dot"></span>
+        <span class="badge-text badge-text--animated">Conforme aux proc&#233;dures OFPPT officielles</span>
+      </div>
+    </div>
+    <div class="hero-preview reveal-up" data-delay="700">
+      <div class="preview-card glass-card preview-card--3d">
+        <div class="preview-header">
+          <div class="preview-dots"><span></span><span></span><span></span></div>
+          <span class="preview-title">Tableau de bord CSF</span>
+        </div>
+        <div class="preview-body">
+          <div class="preview-gauge">
+            <svg viewBox="0 0 120 120" class="gauge-svg">
+              <circle cx="60" cy="60" r="52" fill="none" stroke="currentColor" stroke-width="8" opacity="0.1"/>
+              <circle cx="60" cy="60" r="52" fill="none" stroke="#3B82F6" stroke-width="8" stroke-dasharray="326.73" stroke-dashoffset="104.55" stroke-linecap="round" transform="rotate(-90 60 60)" class="gauge-fill"/>
+              <!-- Glow filter -->
+              <defs>
+                <filter id="gaugeGlow">
+                  <feGaussianBlur stdDeviation="3" result="blur"/>
+                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+              </defs>
+            </svg>
+            <div class="gauge-label">
+              <span class="gauge-amount">68 000 DH</span>
+              <span class="gauge-sub">/ 200 000 DH</span>
+            </div>
+          </div>
+          <div class="preview-alert">
+            <span class="alert-icon">&#9889;</span>
+            <span>3 formations &#224; d&#233;poser cette semaine</span>
+          </div>
+          <!-- Animated scan line -->
+          <div class="preview-scanline"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PROBL&#200;ME ===================== -->
+  <section class="section section-probleme" id="probleme">
+    <div class="container">
+      <h2 class="section-title reveal-up">Chaque ann&#233;e, des droits <em>d&#233;finitivement perdus.</em></h2>
+      <div class="problem-grid">
+        <div class="problem-card problem-card--amber reveal-up" data-delay="100">
+          <div class="problem-pulse"></div>
+          <div class="problem-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="24" cy="24" r="20"/><path d="M24 14v12"/><circle cx="24" cy="32" r="1.5" fill="currentColor"/>
+            </svg>
+          </div>
+          <h3>D&#233;lai rat&#233;</h3>
+          <p>Le dossier technique doit &#234;tre &#224; l'OFPPT au moins 10 jours avant la formation. La plupart des RH ne le savent pas.</p>
+        </div>
+        <div class="problem-card problem-card--red reveal-up" data-delay="200">
+          <div class="problem-pulse"></div>
+          <div class="problem-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 14l20 20M34 14L14 34"/><rect x="6" y="6" width="36" height="36" rx="8"/>
+            </svg>
+          </div>
+          <h3>Dossier non conforme</h3>
+          <p>Un formulaire manquant, une signature absente : remboursement refus&#233;. Sans recours ni deuxi&#232;me chance.</p>
+        </div>
+        <div class="problem-card problem-card--teal reveal-up" data-delay="300">
+          <div class="problem-pulse"></div>
+          <div class="problem-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M8 36l8-10 6 6 8-12 10 8"/><rect x="6" y="6" width="36" height="36" rx="4"/>
+            </svg>
+          </div>
+          <h3>Budget sous-exploit&#233;</h3>
+          <p>Votre TFP vous donne droit &#224; 100% de remboursement. La majorit&#233; des PME r&#233;cup&#232;rent moins de 40%.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SIMULATEUR ===================== -->
+  <section class="section section-simulateur" id="simulateur">
+    <div class="container">
+      <h2 class="section-title reveal-up">Calculez votre budget CSF en 10 secondes</h2>
+      <div class="simulator reveal-up" data-delay="100">
+        <div class="sim-panel sim-input">
+          <h3 class="sim-panel-title">Votre Taxe de Formation Professionnelle</h3>
+          <div class="sim-field">
+            <label for="tfpSlider">Montant TFP annuel</label>
+            <div class="sim-slider-row">
+              <input type="range" id="tfpSlider" min="1000" max="3000000" value="50000" step="1000" class="sim-slider">
+            </div>
+            <div class="sim-input-row">
+              <input type="text" id="tfpInput" value="50 000" class="sim-number-input" inputmode="numeric">
+              <span class="sim-currency">DH</span>
+            </div>
+          </div>
+          <div class="sim-field sim-checkbox-field">
+            <label class="sim-checkbox">
+              <input type="checkbox" id="giacCheck">
+              <span class="sim-checkmark">
+                <svg viewBox="0 0 16 16" fill="none" stroke="white" stroke-width="2.5"><path d="M3 8l3.5 3.5L13 5"/></svg>
+              </span>
+              <span class="sim-checkbox-label">&#201;tude de Diagnostic Strat&#233;gique GIAC valid&#233;e</span>
+            </label>
+          </div>
+        </div>
+        <div class="sim-panel sim-results">
+          <div class="sim-result-main">
+            <span class="sim-result-label">Plafond CSF estim&#233;</span>
+            <div class="sim-result-amount" id="plafondAmount">200 000</div>
+            <span class="sim-result-currency">DH</span>
+          </div>
+          <div class="sim-gauge-container">
+            <svg viewBox="0 0 200 20" class="sim-gauge">
+              <rect x="0" y="0" width="200" height="20" rx="10" fill="currentColor" opacity="0.1"/>
+              <rect x="0" y="0" width="140" height="20" rx="10" fill="url(#gaugeGrad)" id="simGaugeBar"/>
+              <defs>
+                <linearGradient id="gaugeGrad" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#3B82F6"/>
+                  <stop offset="100%" stop-color="#10B981"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div class="sim-result-secondary">
+            <span class="sim-result-label">Remboursement potentiel &#224; 70%</span>
+            <div class="sim-result-amount sim-result-amount--secondary" id="remboursementAmount">140 000</div>
+            <span class="sim-result-currency">DH</span>
+          </div>
+          <div class="sim-rule-context" id="simRuleContext">
+            Tranche TFP 20 000 – 200 000 DH &middot; R&#232;gle OFPPT
+          </div>
+        </div>
+      </div>
+      <div class="sim-footer reveal-up" data-delay="200">
+        <a href="#acces" class="btn btn-primary btn-lg">Acc&#233;der &#224; l'outil complet
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 10h10M11 6l4 4-4 4"/></svg>
+        </a>
+        <p class="sim-disclaimer">Simulation indicative &middot; Bas&#233;e sur les r&#232;gles OFPPT en vigueur</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FONCTIONNALIT&#201;S ===================== -->
+  <section class="section section-features" id="fonctionnalites">
+    <div class="container">
+      <h2 class="section-title reveal-up">Tout ce dont votre &#233;quipe RH a besoin</h2>
+      <div class="features-grid">
+        <div class="feature-card reveal-up" data-delay="100" data-tilt>
+          <div class="feature-glow"></div>
+          <div class="feature-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="6" y="10" width="36" height="28" rx="4"/><path d="M14 22h8M14 28h12"/><circle cx="34" cy="26" r="6"/><path d="M34 23v6M31 26h6"/>
+            </svg>
+          </div>
+          <h3>Calcul automatique des droits</h3>
+          <p>Saisissez votre TFP. Plafond exact selon tranches OFPPT. Jauge budg&#233;taire temps r&#233;el. Z&#233;ro calcul manuel.</p>
+        </div>
+        <div class="feature-card reveal-up" data-delay="200" data-tilt>
+          <div class="feature-glow"></div>
+          <div class="feature-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M24 6l4 8h8l-6 5 2 8-8-5-8 5 2-8-6-5h8z"/><circle cx="24" cy="36" r="6"/><path d="M21 36l2 2 4-4"/>
+            </svg>
+          </div>
+          <h3>Conformit&#233; garantie avant d&#233;p&#244;t</h3>
+          <p>Moteur de r&#232;gles OFPPT int&#233;gr&#233;. D&#233;lais, plafonds, dates limites. Z&#233;ro erreur de proc&#233;dure.</p>
+        </div>
+        <div class="feature-card reveal-up" data-delay="300" data-tilt>
+          <div class="feature-glow"></div>
+          <div class="feature-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M8 12h32M8 24h32M8 36h32"/><circle cx="16" cy="12" r="3" fill="#3B82F6" stroke="#3B82F6"/><circle cx="28" cy="24" r="3" fill="#10B981" stroke="#10B981"/><circle cx="20" cy="36" r="3" fill="#F59E0B" stroke="#F59E0B"/>
+            </svg>
+          </div>
+          <h3>Suivi complet du cycle de vie</h3>
+          <p>Statuts en temps r&#233;el, alertes automatiques, tra&#231;abilit&#233; du Contrat de Formation OFPPT.</p>
+        </div>
+        <div class="feature-card reveal-up" data-delay="400" data-tilt>
+          <div class="feature-glow"></div>
+          <div class="feature-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="8" y="6" width="32" height="36" rx="4"/><path d="M16 18l3 3 6-6"/><path d="M16 28l3 3 6-6"/><line x1="16" y1="38" x2="32" y2="38" opacity="0.4"/>
+            </svg>
+          </div>
+          <h3>Check-lists de remboursement intelligentes</h3>
+          <p>Liste exacte des pi&#232;ces g&#233;n&#233;r&#233;e selon le type d'action. Plus d'oubli, plus de rejet.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PROCESSUS ===================== -->
+  <section class="section section-process" id="processus">
+    <div class="container">
+      <h2 class="section-title reveal-up">Op&#233;rationnel en 15 minutes</h2>
+
+      <!-- Progress bar connecting dots -->
+      <div class="process-track" id="processTrack">
+        <div class="process-track-line">
+          <div class="process-track-fill" id="processTrackFill"></div>
+        </div>
+        <div class="process-dots">
+          <div class="process-dot active" data-step="0"><span>1</span><div class="process-dot-ping"></div></div>
+          <div class="process-dot" data-step="1"><span>2</span><div class="process-dot-ping"></div></div>
+          <div class="process-dot" data-step="2"><span>3</span><div class="process-dot-ping"></div></div>
+          <div class="process-dot" data-step="3"><span>4</span><div class="process-dot-ping"></div></div>
+        </div>
+      </div>
+
+      <!-- Cards grid -->
+      <div class="process-grid" id="processGrid">
+        <div class="process-card active" data-step="0">
+          <div class="process-card-glow"></div>
+          <div class="process-card-number">01</div>
+          <div class="process-card-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="8" y="8" width="32" height="32" rx="6"/>
+              <path d="M18 20h12M18 26h8" stroke-width="2"/>
+              <circle cx="34" cy="14" r="6" fill="#3B82F6" stroke="#3B82F6"/>
+              <path d="M32 14h4M34 12v4" stroke="white" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <h3>Configurez votre TFP</h3>
+          <p>Budget CSF disponible affich&#233; instantan&#233;ment</p>
+          <div class="process-card-tag">~2 min</div>
+        </div>
+
+        <div class="process-card" data-step="1">
+          <div class="process-card-glow"></div>
+          <div class="process-card-number">02</div>
+          <div class="process-card-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="6" y="10" width="36" height="28" rx="4"/>
+              <path d="M6 18h36" stroke-width="1.5"/>
+              <rect x="12" y="24" width="8" height="8" rx="2" fill="#10B981" stroke="#10B981" opacity="0.3"/>
+              <rect x="24" y="24" width="8" height="8" rx="2" fill="#3B82F6" stroke="#3B82F6" opacity="0.3"/>
+              <path d="M16 28l-2 2 4 0" stroke="#10B981" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <h3>Planifiez vos formations</h3>
+          <p>D&#233;lais OFPPT v&#233;rifi&#233;s en temps r&#233;el</p>
+          <div class="process-card-tag">~5 min</div>
+        </div>
+
+        <div class="process-card" data-step="2">
+          <div class="process-card-glow"></div>
+          <div class="process-card-number">03</div>
+          <div class="process-card-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="24" cy="24" r="16"/>
+              <path d="M24 14v10l7 7" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="38" cy="12" r="5" fill="#F59E0B" stroke="#F59E0B"/>
+              <path d="M36 12h4M38 10v4" stroke="white" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <h3>Suivez l'avancement</h3>
+          <p>Alertes automatiques sur toutes les &#233;ch&#233;ances</p>
+          <div class="process-card-tag">Continu</div>
+        </div>
+
+        <div class="process-card" data-step="3">
+          <div class="process-card-glow"></div>
+          <div class="process-card-number">04</div>
+          <div class="process-card-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="10" y="6" width="28" height="36" rx="4"/>
+              <path d="M18 18l3 3 7-7" stroke="#10B981" stroke-width="2" stroke-linecap="round"/>
+              <path d="M18 28l3 3 7-7" stroke="#10B981" stroke-width="2" stroke-linecap="round"/>
+              <path d="M18 38h12" opacity="0.3" stroke-width="2"/>
+            </svg>
+          </div>
+          <h3>Pr&#233;parez le dossier</h3>
+          <p>Check-list compl&#232;te. Remboursement s&#233;curis&#233;.</p>
+          <div class="process-card-tag">~8 min</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== M&#201;TRIQUES ===================== -->
+  <section class="section section-metrics" id="metriques">
+    <div class="container">
+      <div class="metrics-grid">
+        <div class="metric-card reveal-up" data-delay="100">
+          <div class="metric-value" data-target="70" data-suffix="%">0%</div>
+          <p class="metric-label">Taux de remboursement atteignable avec un suivi rigoureux</p>
+        </div>
+        <div class="metric-card reveal-up" data-delay="200">
+          <div class="metric-value" data-target="10" data-suffix=" jours">0 jours</div>
+          <p class="metric-label">Le d&#233;lai critique que la plupart des RH d&#233;couvrent trop tard</p>
+        </div>
+        <div class="metric-card reveal-up" data-delay="300">
+          <div class="metric-value" data-target="0" data-prefix="" data-suffix=" DH perdu">0 DH perdu</div>
+          <p class="metric-label">L'objectif de chaque entreprise utilisatrice</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section class="section section-faq" id="faq">
+    <div class="container">
+      <div class="faq-header">
+        <h2 class="section-title faq-title" data-faq-reveal="title">Questions fr&#233;quentes</h2>
+        <p class="section-subtitle">Tout ce que vous devez savoir avant de commencer</p>
+      </div>
+      <div class="faq-layout">
+        <!-- Left: Category pills -->
+        <div class="faq-nav" data-faq-reveal="nav">
+          <div class="faq-nav-indicator" id="faqIndicator"></div>
+          <button class="faq-pill active" data-cat="0" data-accent="#3B82F6">
+            <svg class="faq-pill-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="14" height="14" rx="2"/><path d="M12 3v4h4"/><path d="M7 10h6M7 13h4"/></svg>
+            <span class="faq-pill-text">Comprendre le produit</span>
+            <span class="faq-pill-count">4</span>
+          </button>
+          <button class="faq-pill" data-cat="1" data-accent="#10B981">
+            <svg class="faq-pill-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="10,2 17.5,6 17.5,14 10,18 2.5,14 2.5,6"/><circle cx="10" cy="10" r="2" fill="currentColor"/></svg>
+            <span class="faq-pill-text">R&#232;gles OFPPT &amp; Conformit&#233;</span>
+            <span class="faq-pill-count">5</span>
+          </button>
+          <button class="faq-pill" data-cat="2" data-accent="#8B5CF6">
+            <svg class="faq-pill-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="7.5"/><polygon points="8,6 15,10 8,14" fill="currentColor" stroke="none"/></svg>
+            <span class="faq-pill-text">Prise en main</span>
+            <span class="faq-pill-count">4</span>
+          </button>
+          <button class="faq-pill" data-cat="3" data-accent="#F59E0B">
+            <svg class="faq-pill-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 14v2h12v-2"/><path d="M4 14c0-5 2-8 6-8s6 3 6 8"/><circle cx="10" cy="4" r="1" fill="currentColor"/></svg>
+            <span class="faq-pill-text">Abonnement &amp; Support</span>
+            <span class="faq-pill-count">3</span>
+          </button>
+        </div>
+
+        <!-- Right: Accordion panels -->
+        <div class="faq-content">
+          <div class="faq-scan" id="faqScan"></div>
+
+          <!-- Cat 0: Comprendre le produit -->
+          <div class="faq-panel active" data-panel="0" data-accent="#3B82F6">
+            <div class="faq-item">
+              <button class="faq-question"><span>L'application communique-t-elle directement avec l'OFPPT ?</span><span class="faq-toggle"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="9"/><line x1="6" y1="10" x2="14" y2="10"/><line x1="10" y1="6" x2="10" y2="14"/></svg></span></button>
+              <div class="faq-answer"><div class="faq-answer-inner"><p>Non. e-CSF Manager est un outil de pilotage interne. Il ne se connecte &#224; aucun syst&#232;me OFPPT, ne d&#233;pose aucun dossier &#224; votre place, et ne remplace aucune d&#233;marche administrative physique. Il vous guide, contr&#244;le et alerte — vous gardez la main sur toutes les actions officielles.</p></div></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-question"><span>&#192; quoi sert concr&#232;tement e-CSF Manager au quotidien ?</span><span class="faq-toggle"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="9"/><line x1="6" y1="10" x2="14" y2="10"/><line x1="10" y1="6" x2="10" y2="14"/></svg></span></button>
+              <div class="faq-answer"><div class="faq-answer-inner"><p>D&#232;s qu'un organisme de formation vous envoie un devis, vous saisissez l'action dans l'outil. Il calcule imm&#233;diatement le taux applicable, le remboursement estim&#233;, et v&#233;rifie que vous respectez les d&#233;lais r&#233;glementaires avant le d&#233;p&#244;t &#224; l'OFPPT. Une fois la formation termin&#233;e, il g&#233;n&#232;re la check-list exacte des documents &#224; rassembler pour le dossier financier.</p></div></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-question"><span>Est-ce que l'outil remplace un cabinet conseil CSF ?</span><span class="faq-toggle"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="9"/><line x1="6" y1="10" x2="14" y2="10"/><line x1="10" y1="6" x2="10" y2="14"/></svg></span></button>
+              <div class="faq-answer"><div class="faq-answer-inner"><p>Il remplace le travail de suivi, de calcul et de v&#233;rification qu'un cabinet fait &#224; votre place — mais il ne r&#233;dige pas vos dossiers. Si vous avez d&#233;j&#224; un cabinet, l'outil leur fait gagner du temps. Si vous g&#233;rez en interne, il vous rend autonome.</p></div></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-question"><span>L'outil fonctionne-t-il pour toutes les entreprises marocaines ?</span><span class="faq-toggle"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="9"/><line x1="6" y1="10" x2="14" y2="10"/><line x1="10" y1="6" x2="10" y2="14"/></svg></span></button>
+              <div class="faq-answer"><div class="faq-answer-inner"><p>Il est con&#231;u pour les PME et ETI dont la TFP annuelle est inf&#233;rieure &#224; 3 millions de DH. Les Grands &#201;tablissements (TFP &#8805; 3M DH, banques, assurances, &#233;tablissements publics) rel&#232;vent d'une proc&#233;dure distincte non couverte par le p&#233;rim&#232;tre actuel.</p></div></div>
+            </div>
+          </div>
+
+          <!-- Cat 1: Règles OFPPT -->
+          <div class="faq-panel" data-panel="1" data-accent="#10B981">
+            <div class="faq-item">
+              <button class="faq-question"><span>Quelle est la diff&#233;rence entre une Action Planifi&#233;e et Non Planifi&#233;e ?</span><span class="faq-toggle"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="9"/><line x1="6" y1="10" x2="14" y2="10"/><line x1="10" y1="6" x2="10" y2="14"/></svg></span></button>
+              <div class="faq-answer"><div class="faq-answer-inner"><p>Une Action Planifi&#233;e s'inscrit dans un plan de formation annuel valid&#233; par le GIAC. Elle est rembours&#233;e &#224; 70% et doit &#234;tre d&#233;pos&#233;e &#224; l'OFPPT au moins 10 jours calendaires avant le d&#233;marrage, et avant le 30 juin. Une Action Non Planifi&#233;e est conjoncturelle, rembours&#233;e &#224; 40%, et peut &#234;tre d&#233;pos&#233;e jusqu'au 31 d&#233;cembre avec un d&#233;lai minimum de 5 jours.</p></div></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-question"><span>Pourquoi le d&#233;lai de 10 jours est-il si critique ?</span><span class="faq-toggle"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="9"/><line x1="6" y1="10" x2="14" y2="10"/><line x1="10" y1="6" x2="10" y2="14"/></svg></span></button>
+              <div class="faq-answer"><div class="faq-answer-inner"><p>Ce d&#233;lai court &#224; partir de la date de r&#233;ception du dossier par l'Unit&#233; de Gestion des CSF de l'OFPPT — pas &#224; partir de votre saisie dans l'application. Si l'OFPPT re&#231;oit votre dossier moins de 10 jours avant le d&#233;marrage, la formation est irrecevable et le remboursement perdu d&#233;finitivement.</p></div></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-question"><span>Comment est calcul&#233; mon plafond de remboursement ?</span><span class="faq-toggle"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="9"/><line x1="6" y1="10" x2="14" y2="10"/><line x1="10" y1="6" x2="10" y2="14"/></svg></span></button>
+              <div class="faq-answer"><div class="faq-answer-inner"><p>Il d&#233;pend de votre TFP sur l'Ann&#233;e TFP (1er juillet N-2 au 30 juin N-1). TFP &lt; 20 000 DH : plafond = TFP &#215; 10 (ou &#215; 15 avec &#201;tude Strat&#233;gique GIAC). Entre 20 000 et 200 000 DH : plafond fixe 200 000 DH (300 000 avec &#233;tude). Au-del&#224; de 200 000 DH : plafond = 100% de votre TFP.</p></div></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-question"><span>Que se passe-t-il si j'annule une formation &#224; la derni&#232;re minute ?</span><span class="faq-toggle"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="9"/><line x1="6" y1="10" x2="14" y2="10"/><line x1="10" y1="6" x2="10" y2="14"/></svg></span></button>
+              <div class="faq-answer"><div class="faq-answer-inner"><p>Toute annulation doit &#234;tre signal&#233;e &#224; l'UGCSF via le Mod&#232;le 3, dans un d&#233;lai minimum de 24 heures avant le d&#233;marrage. L'outil vous avertit d&#232;s que vous approchez de cette limite et vous rappelle de d&#233;poser le Mod&#232;le 3 &#224; l'OFPPT.</p></div></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-question"><span>Jusqu'&#224; quand puis-je d&#233;poser mon dossier de remboursement ?</span><span class="faq-toggle"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="9"/><line x1="6" y1="10" x2="14" y2="10"/><line x1="10" y1="6" x2="10" y2="14"/></svg></span></button>
+              <div class="faq-answer"><div class="faq-answer-inner"><p>Le dossier financier doit &#234;tre d&#233;pos&#233; au plus tard le 31 d&#233;cembre de l'ann&#233;e N+1. Vous disposez de 18 mois apr&#232;s une formation — mais l'outil vous alerte bien avant pour &#233;viter tout oubli.</p></div></div>
+            </div>
+          </div>
+
+          <!-- Cat 2: Prise en main -->
+          <div class="faq-panel" data-panel="2" data-accent="#8B5CF6">
+            <div class="faq-item">
+              <button class="faq-question"><span>Combien de temps pour &#234;tre op&#233;rationnel ?</span><span class="faq-toggle"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="9"/><line x1="6" y1="10" x2="14" y2="10"/><line x1="10" y1="6" x2="10" y2="14"/></svg></span></button>
+              <div class="faq-answer"><div class="faq-answer-inner"><p>La configuration initiale prend moins de 15 minutes : vous saisissez votre TFP, l'outil calcule votre budget, et vous commencez &#224; planifier vos premi&#232;res actions. Aucune installation, aucun param&#233;trage technique.</p></div></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-question"><span>Faut-il importer des donn&#233;es depuis notre ancien syst&#232;me ?</span><span class="faq-toggle"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="9"/><line x1="6" y1="10" x2="14" y2="10"/><line x1="10" y1="6" x2="10" y2="14"/></svg></span></button>
+              <div class="faq-answer"><div class="faq-answer-inner"><p>Non. L'outil fonctionne en saisie d&#233;clarative au fil de l'eau. Si vous souhaitez int&#233;grer des formations d&#233;j&#224; en cours &#224; mi-exercice, c'est possible lors de l'onboarding avec l'accompagnement de notre &#233;quipe.</p></div></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-question"><span>Combien d'utilisateurs peuvent acc&#233;der au compte ?</span><span class="faq-toggle"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="9"/><line x1="6" y1="10" x2="14" y2="10"/><line x1="10" y1="6" x2="10" y2="14"/></svg></span></button>
+              <div class="faq-answer"><div class="faq-answer-inner"><p>Cela d&#233;pend de la formule choisie. La formule Essentiel inclut un acc&#232;s unique. Les formules Standard et Premium permettent plusieurs utilisateurs avec des r&#244;les distincts — saisisseur, lecteur, administrateur. Contactez-nous pour une configuration adapt&#233;e.</p></div></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-question"><span>Les donn&#233;es de mon entreprise sont-elles confidentielles ?</span><span class="faq-toggle"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="9"/><line x1="6" y1="10" x2="14" y2="10"/><line x1="10" y1="6" x2="10" y2="14"/></svg></span></button>
+              <div class="faq-answer"><div class="faq-answer-inner"><p>Oui. Votre TFP, vos budgets et vos donn&#233;es de formation ne sont jamais partag&#233;s ni utilis&#233;s &#224; des fins tierces. Chaque compte est isol&#233;. L'application ne communique avec aucun organisme externe, y compris l'OFPPT.</p></div></div>
+            </div>
+          </div>
+
+          <!-- Cat 3: Abonnement & Support -->
+          <div class="faq-panel" data-panel="3" data-accent="#F59E0B">
+            <div class="faq-item">
+              <button class="faq-question"><span>Comment fonctionne l'abonnement ?</span><span class="faq-toggle"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="9"/><line x1="6" y1="10" x2="14" y2="10"/><line x1="10" y1="6" x2="10" y2="14"/></svg></span></button>
+              <div class="faq-answer"><div class="faq-answer-inner"><p>L'acc&#232;s est conditionn&#233; &#224; un abonnement annuel ou mensuel, dont le tarif est calcul&#233; selon le chiffre d'affaires de votre entreprise. Apr&#232;s votre demande de devis, notre &#233;quipe vous contacte sous 24h avec une proposition personnalis&#233;e. Aucun engagement avant signature.</p></div></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-question"><span>Y a-t-il une p&#233;riode d'essai ?</span><span class="faq-toggle"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="9"/><line x1="6" y1="10" x2="14" y2="10"/><line x1="10" y1="6" x2="10" y2="14"/></svg></span></button>
+              <div class="faq-answer"><div class="faq-answer-inner"><p>Contactez-nous pour discuter des modalit&#233;s d'acc&#232;s d&#233;couverte. Notre &#233;quipe peut organiser une d&#233;monstration guid&#233;e sur vos donn&#233;es r&#233;elles avant tout engagement.</p></div></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-question"><span>Que se passe-t-il si les r&#232;gles OFPPT changent en cours d'exercice ?</span><span class="faq-toggle"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="9"/><line x1="6" y1="10" x2="14" y2="10"/><line x1="10" y1="6" x2="10" y2="14"/></svg></span></button>
+              <div class="faq-answer"><div class="faq-answer-inner"><p>Les taux, plafonds et d&#233;lais sont configur&#233;s dans le back-office de l'application. D&#232;s qu'une modification r&#233;glementaire est publi&#233;e, nous mettons &#224; jour les param&#232;tres et notifions tous les clients. Aucune intervention de votre part n'est requise.</p></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Easter egg toast -->
+    <div class="faq-toast" id="faqToast">&#128161; Vous ma&#238;trisez d&#233;j&#224; les bases CSF. L'outil fera le reste.</div>
+  </section>
+
+  <!-- ===================== FORMULAIRE ===================== -->
+  <section class="section section-form" id="acces">
+    <div class="container">
+      <div class="form-header reveal-up">
+        <h2 class="section-title">Demandez votre acc&#232;s — Devis en 24h</h2>
+        <p class="section-subtitle">Notre &#233;quipe vous contacte sous 24h avec une proposition adapt&#233;e &#224; la taille de votre entreprise.</p>
+      </div>
+      <form class="access-form reveal-up" data-delay="100" id="accessForm" novalidate>
+        <div class="form-grid">
+          <div class="form-field" data-required>
+            <label for="companyName">Nom de l'entreprise</label>
+            <input type="text" id="companyName" required placeholder="Ex : Atlas Textile SA">
+            <span class="field-error">Ce champ est requis</span>
+          </div>
+          <div class="form-field" data-required>
+            <label for="sector">Secteur d'activit&#233;</label>
+            <select id="sector" required>
+              <option value="" disabled selected>S&#233;lectionnez...</option>
+              <option>Industrie</option>
+              <option>Commerce</option>
+              <option>Services</option>
+              <option>BTP</option>
+              <option>Agroalimentaire</option>
+              <option>Transport</option>
+              <option>H&#244;tellerie</option>
+              <option>Autre</option>
+            </select>
+            <span class="field-error">Ce champ est requis</span>
+          </div>
+          <div class="form-field" data-required>
+            <label for="revenue">Chiffre d'affaires annuel</label>
+            <select id="revenue" required>
+              <option value="" disabled selected>S&#233;lectionnez...</option>
+              <option>&lt; 5M DH</option>
+              <option>5 – 20M DH</option>
+              <option>20 – 100M DH</option>
+              <option>&gt; 100M DH</option>
+            </select>
+            <span class="field-error">Ce champ est requis</span>
+          </div>
+          <div class="form-field">
+            <label for="tfpEstimee">TFP estim&#233;e <span style="opacity:0.5">(optionnel)</span></label>
+            <input type="text" id="tfpEstimee" placeholder="Ex : 150 000 DH" inputmode="numeric">
+          </div>
+          <div class="form-field" data-required>
+            <label for="contactName">Nom du contact</label>
+            <input type="text" id="contactName" required placeholder="Pr&#233;nom et nom">
+            <span class="field-error">Ce champ est requis</span>
+          </div>
+          <div class="form-field" data-required>
+            <label for="position">Poste</label>
+            <select id="position" required>
+              <option value="" disabled selected>S&#233;lectionnez...</option>
+              <option>DRH</option>
+              <option>RRH</option>
+              <option>DAF</option>
+              <option>Directeur G&#233;n&#233;ral</option>
+              <option>Autre</option>
+            </select>
+            <span class="field-error">Ce champ est requis</span>
+          </div>
+          <div class="form-field" data-required>
+            <label for="email">Email professionnel</label>
+            <input type="email" id="email" required placeholder="nom@entreprise.ma">
+            <span class="field-error">Email invalide</span>
+          </div>
+          <div class="form-field" data-required>
+            <label for="phone">T&#233;l&#233;phone</label>
+            <input type="tel" id="phone" required placeholder="+212 6XX XXX XXX">
+            <span class="field-error">Ce champ est requis</span>
+          </div>
+        </div>
+        <div class="form-submit">
+          <button type="submit" class="btn btn-primary btn-lg btn-submit">
+            <span class="btn-text">Recevoir mon devis personnalis&#233;</span>
+            <svg class="btn-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 10h10M11 6l4 4-4 4"/></svg>
+            <svg class="btn-spinner" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10" cy="10" r="8" stroke-dasharray="50" stroke-dashoffset="15"/></svg>
+          </button>
+          <p class="form-note">Sans engagement &middot; R&#233;ponse garantie sous 24h</p>
+        </div>
+      </form>
+      <div class="form-success" id="formSuccess">
+        <svg class="success-check" viewBox="0 0 80 80" fill="none">
+          <circle cx="40" cy="40" r="36" stroke="#10B981" stroke-width="3"/>
+          <path d="M24 40l10 10 22-22" stroke="#10B981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="check-path"/>
+        </svg>
+        <h3>Demande envoy&#233;e avec succ&#232;s</h3>
+        <p>Notre &#233;quipe vous recontacte sous 24h avec un devis adapt&#233;.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <img src="img/logo-dark.png" alt="e-CSF Manager" class="logo-img logo-img--dark footer-logo">
+          <img src="img/logo-light.png" alt="e-CSF Manager" class="logo-img logo-img--light footer-logo">
+          <span>Le copilote de conformit&#233; CSF des PME marocaines</span>
+        </div>
+        <div class="footer-links">
+          <a href="#">Mentions l&#233;gales</a>
+          <span class="footer-sep">&middot;</span>
+          <a href="#">Confidentialit&#233;</a>
+          <span class="footer-sep">&middot;</span>
+          <a href="#">Contact</a>
+        </div>
+        <p class="footer-legal">Outil ind&#233;pendant — non affili&#233; &#224; l'OFPPT</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
